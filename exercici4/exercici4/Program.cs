@@ -1,52 +1,43 @@
 ﻿using System;
 
-public class Program
+public  class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        while (true)
-        {
-            Console.WriteLine("Escoge una opción para calcular \n 1. Rectángulo \n 2. Círculo");
-            int opciones = SolicitarEntero();
+       
+        double ancho = ImputNumero("Introduce el ancho del rectángulo:");
+        double alto = ImputNumero("Introduce el alto del rectángulo:");
 
-            switch (opciones)
-            {
-                case 1:
-                    CalculosRectangulo();
-                    CalculosCirculo();
-                    break;
-                case 2:
-                    CalculosCirculo();
-                    CalculosRectangulo();
-                    break;
-                default:
-                    Console.WriteLine("Selección incorrecta, por favor, elige nuevamente.");
-                    break;
-            }
-        }
-    }
-
-    public static void CalculosRectangulo()
-    {
-        Console.WriteLine("Introduce el ancho del rectángulo:");
-        double width = ValidDecimal();
-        Console.WriteLine("Introduce la altura del rectángulo:");
-        double height = ValidDecimal();
-
-        double area = width * height;
+        // Calcula el área
+        double area = CalcularAreaRectangulo(ancho, alto);
         Console.WriteLine($"El área del rectángulo es: {area}");
-        ValidarArea(area);
+
+      
+        double radio = ImputNumero("Introduce el radio del círculo:");
+        double circunferencia = CalcularCircunferencia(radio);
+        Console.WriteLine($"La circunferencia del círculo es: {circunferencia}");
+
+
+        ImprimirMensajeArea(area);
     }
 
-    public static void CalculosCirculo()
+    public static double ImputNumero(string mensaje)
     {
-        Console.WriteLine("Introduce el radio del círculo:");
-        double radius = ValidDecimal();
-        double circumference = 2 * Math.PI * radius;
-        Console.WriteLine($"La circunferencia del círculo es: {circumference}");
+        Console.WriteLine(mensaje);
+        return Convert.ToDouble(Console.ReadLine());
     }
 
-    public static void ValidarArea(double area)
+    public static double CalcularAreaRectangulo(double ancho, double alto)
+    {
+        return ancho * alto;
+    }
+
+    public static double CalcularCircunferencia(double radio)
+    {
+        return 2 * Math.PI * radio;
+    }
+
+    public static void ImprimirMensajeArea(double area)
     {
         if (area > 50)
         {
@@ -59,39 +50,6 @@ public class Program
         else
         {
             Console.WriteLine("El área es menor o igual a 20");
-        }
-    }
-
-    public static int SolicitarEntero()
-    {
-        while (true)
-        {
-            string entrada = Console.ReadLine();
-            if (int.TryParse(entrada, out int resultado))
-            {
-                return resultado;
-            }
-            else
-            {
-                Console.WriteLine("Entrada no válida. Por favor, introduce un número entero.");
-            }
-        }
-    }
-
-   
-    public static double ValidDecimal()
-    {
-        while (true)
-        {
-            string entrada = Console.ReadLine();
-            if (double.TryParse(entrada, out double resultado))
-            {
-                return resultado;
-            }
-            else
-            {
-                Console.WriteLine("Entrada no válida. Por favor, introduce un número decimal válido.");
-            }
         }
     }
 }
